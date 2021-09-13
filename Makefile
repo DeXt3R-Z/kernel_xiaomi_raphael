@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 VERSION = 4
 PATCHLEVEL = 14
-SUBLEVEL = 245
+SUBLEVEL = 246
 EXTRAVERSION =
 NAME = Petit Gorille
 
@@ -733,6 +733,10 @@ KBUILD_CFLAGS   += -O3
 KBUILD_CFLAGS	+= $(call cc-option, -mcpu=cortex-a76 -mtune=cortex-a76)
 ifdef CONFIG_LTO_CLANG
 KBUILD_CFLAG	+= -fwhole-program-vtables
+endif
+ifdef CONFIG_INLINE_OPTIMIZATION
+KBUILD_CFLAGS	+= -mllvm -inline-threshold=12000
+KBUILD_CFLAGS	+= -mllvm -inlinehint-threshold=9000
 endif
 endif
 endif
